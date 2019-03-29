@@ -1,0 +1,39 @@
+﻿@model IEnumerable<GerenciamentoCondominios.Models.Bloco>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taxa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taxa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BlocoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BlocoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BlocoId })
+        </td>
+    </tr>
+}
+
+</table>

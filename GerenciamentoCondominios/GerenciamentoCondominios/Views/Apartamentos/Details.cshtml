@@ -1,0 +1,42 @@
+﻿@model GerenciamentoCondominios.Models.Apartamento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Apartamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bloco.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bloco.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeDono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeDono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Andar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Andar)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pk_Apartamento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
