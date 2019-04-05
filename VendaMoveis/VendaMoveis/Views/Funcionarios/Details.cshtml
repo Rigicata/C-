@@ -1,0 +1,42 @@
+﻿@model VendaMoveis.Models.Funcionario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Funcionario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Movel.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movel.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusFuncionario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusFuncionario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pk_Funcionario }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
