@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="JogadorSet" EntityType="Model1.Store.JogadorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimeSet" EntityType="Model1.Store.TimeSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="JogadorTime" Association="Model1.Store.JogadorTime">
+      <End Role="Jogador" EntitySet="JogadorSet" />
+      <End Role="Time" EntitySet="TimeSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="JogadorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Elo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lane" Type="int" Nullable="false" />
+    <Property Name="TimeId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TimeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataFundacao" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="JogadorTime">
+    <End Role="Jogador" Type="Model1.Store.JogadorSet" Multiplicity="*" />
+    <End Role="Time" Type="Model1.Store.TimeSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Time">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jogador">
+        <PropertyRef Name="TimeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

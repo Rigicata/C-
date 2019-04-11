@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="JogadorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Jogador)">
+        <MappingFragment StoreEntitySet="JogadorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Elo" ColumnName="Elo" />
+          <ScalarProperty Name="Lane" ColumnName="Lane" />
+          <ScalarProperty Name="TimeId" ColumnName="TimeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Time)">
+        <MappingFragment StoreEntitySet="TimeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="DataFundacao" ColumnName="DataFundacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

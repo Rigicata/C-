@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="JogadorSet" EntityType="Model1.Jogador" />
+    <EntitySet Name="TimeSet" EntityType="Model1.Time" />
+    <AssociationSet Name="JogadorTime" Association="Model1.JogadorTime">
+      <End Role="Jogador" EntitySet="JogadorSet" />
+      <End Role="Time" EntitySet="TimeSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Jogador">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <Property Name="Elo" Type="String" Nullable="false" />
+    <Property Name="Lane" Type="Model1.Lane" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <NavigationProperty Name="Time" Relationship="Model1.JogadorTime" FromRole="Jogador" ToRole="Time" />
+    <Property Name="TimeId" Type="Int32" Nullable="true" />
+  </EntityType>
+  <EnumType Name="Lane">
+    <Member Name="Mid" />
+    <Member Name="Top" />
+    <Member Name="Adc" />
+    <Member Name="Suporte" />
+    <Member Name="Jungle" />
+  </EnumType>
+  <EntityType Name="Time">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <Property Name="DataFundacao" Type="String" Nullable="false" />
+    <NavigationProperty Name="Jogadores" Relationship="Model1.JogadorTime" FromRole="Time" ToRole="Jogador" />
+  </EntityType>
+  <Association Name="JogadorTime">
+    <End Type="Model1.Jogador" Role="Jogador" Multiplicity="*" />
+    <End Type="Model1.Time" Role="Time" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Time">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jogador">
+        <PropertyRef Name="TimeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

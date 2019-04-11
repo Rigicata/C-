@@ -12,7 +12,7 @@ namespace PBLSENAI.Models
         public int BebedouroId { get; set; }
         public string Localizacao{ get; set; }
         public StatusCopo StatusCopo { get; set; }
-        [ForeignKey("Bebedouro")]
+        [ForeignKey("Estoque")]
         public int EstoqueId { get; set; }
         public Estoque Estoque { get; set; }
 
