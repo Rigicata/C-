@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="RegistroSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Registro)">
+        <MappingFragment StoreEntitySet="RegistroSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Classificacao" ColumnName="Classificacao" />
+          <ScalarProperty Name="Conteudo" ColumnName="Conteudo" />
+          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonagemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Personagem)">
+        <MappingFragment StoreEntitySet="PersonagemSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GrauParentesco" ColumnName="GrauParentesco" />
+          <ScalarProperty Name="Idade" ColumnName="Idade" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Registro_PersonagemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Registro_Personagem)">
+        <MappingFragment StoreEntitySet="Registro_PersonagemSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonagemId" ColumnName="PersonagemId" />
+          <ScalarProperty Name="RegistroId" ColumnName="RegistroId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocalSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Local)">
+        <MappingFragment StoreEntitySet="LocalSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+          <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MelhoriaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Melhoria)">
+        <MappingFragment StoreEntitySet="MelhoriaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Possivel" ColumnName="Possivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MelhoriaRegistro" TypeName="Model1.MelhoriaRegistro" StoreEntitySet="MelhoriaSet">
+      <EndProperty Name="Registro">
+        <ScalarProperty Name="Id" ColumnName="Registro_Id" />
+      </EndProperty>
+      <EndProperty Name="Melhoria">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

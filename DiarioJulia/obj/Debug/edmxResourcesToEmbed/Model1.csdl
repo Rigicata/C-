@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="RegistroSet" EntityType="Model1.Registro" />
+    <EntitySet Name="PersonagemSet" EntityType="Model1.Personagem" />
+    <EntitySet Name="Registro_PersonagemSet" EntityType="Model1.Registro_Personagem" />
+    <EntitySet Name="LocalSet" EntityType="Model1.Local" />
+    <EntitySet Name="MelhoriaSet" EntityType="Model1.Melhoria" />
+    <AssociationSet Name="LocalRegistro" Association="Model1.LocalRegistro">
+      <End Role="Local" EntitySet="LocalSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+    <AssociationSet Name="MelhoriaRegistro" Association="Model1.MelhoriaRegistro">
+      <End Role="Melhoria" EntitySet="MelhoriaSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+    <AssociationSet Name="Registro_PersonagemPersonagem" Association="Model1.Registro_PersonagemPersonagem">
+      <End Role="Registro_Personagem" EntitySet="Registro_PersonagemSet" />
+      <End Role="Personagem" EntitySet="PersonagemSet" />
+    </AssociationSet>
+    <AssociationSet Name="RegistroRegistro_Personagem" Association="Model1.RegistroRegistro_Personagem">
+      <End Role="Registro_Personagem" EntitySet="Registro_PersonagemSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Registro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Data" Type="String" Nullable="false" />
+    <Property Name="Titulo" Type="String" Nullable="false" />
+    <Property Name="Classificacao" Type="Model1.Classificacao" Nullable="false" />
+    <Property Name="Conteudo" Type="String" Nullable="false" />
+    <NavigationProperty Name="Local" Relationship="Model1.LocalRegistro" FromRole="Registro" ToRole="Local" />
+    <Property Name="LocalId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Melhoria" Relationship="Model1.MelhoriaRegistro" FromRole="Registro" ToRole="Melhoria" />
+    <NavigationProperty Name="Registro_Personagem" Relationship="Model1.RegistroRegistro_Personagem" FromRole="Registro" ToRole="Registro_Personagem" />
+  </EntityType>
+  <EntityType Name="Personagem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GrauParentesco" Type="String" Nullable="false" />
+    <Property Name="Idade" Type="Int32" Nullable="true" />
+    <Property Name="Nota" Type="Model1.Nota" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <NavigationProperty Name="Registro_Personagem" Relationship="Model1.Registro_PersonagemPersonagem" FromRole="Personagem" ToRole="Registro_Personagem" />
+  </EntityType>
+  <EntityType Name="Registro_Personagem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Personagem" Relationship="Model1.Registro_PersonagemPersonagem" FromRole="Registro_Personagem" ToRole="Personagem" />
+    <Property Name="PersonagemId" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Registro" Relationship="Model1.RegistroRegistro_Personagem" FromRole="Registro_Personagem" ToRole="Registro" />
+    <Property Name="RegistroId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" />
+    <Property Name="Endereco" Type="String" Nullable="false" />
+    <Property Name="Referencia" Type="String" Nullable="false" />
+    <NavigationProperty Name="Registro" Relationship="Model1.LocalRegistro" FromRole="Local" ToRole="Registro" />
+  </EntityType>
+  <EnumType Name="Classificacao">
+    <Member Name="Bom" />
+    <Member Name="Ruim" />
+    <Member Name="Neutro" />
+  </EnumType>
+  <EntityType Name="Melhoria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Texto" Type="String" Nullable="false" />
+    <Property Name="Possivel" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Registro" Relationship="Model1.MelhoriaRegistro" FromRole="Melhoria" ToRole="Registro" />
+  </EntityType>
+  <EnumType Name="Nota">
+    <Member Name="Um" Value="1" />
+    <Member Name="Dois" Value="2" />
+    <Member Name="Tres" Value="3" />
+    <Member Name="Quatro" Value="4" />
+    <Member Name="Cinco" Value="5" />
+  </EnumType>
+  <Association Name="LocalRegistro">
+    <End Type="Model1.Local" Role="Local" Multiplicity="1" />
+    <End Type="Model1.Registro" Role="Registro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro">
+        <PropertyRef Name="LocalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MelhoriaRegistro">
+    <End Type="Model1.Melhoria" Role="Melhoria" Multiplicity="*" />
+    <End Type="Model1.Registro" Role="Registro" Multiplicity="1" />
+  </Association>
+  <Association Name="Registro_PersonagemPersonagem">
+    <End Type="Model1.Registro_Personagem" Role="Registro_Personagem" Multiplicity="*" />
+    <End Type="Model1.Personagem" Role="Personagem" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personagem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro_Personagem">
+        <PropertyRef Name="PersonagemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RegistroRegistro_Personagem">
+    <End Type="Model1.Registro_Personagem" Role="Registro_Personagem" Multiplicity="*" />
+    <End Type="Model1.Registro" Role="Registro" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Registro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro_Personagem">
+        <PropertyRef Name="RegistroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

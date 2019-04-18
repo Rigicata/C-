@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="RegistroSet" EntityType="Model1.Store.RegistroSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonagemSet" EntityType="Model1.Store.PersonagemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Registro_PersonagemSet" EntityType="Model1.Store.Registro_PersonagemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocalSet" EntityType="Model1.Store.LocalSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MelhoriaSet" EntityType="Model1.Store.MelhoriaSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="LocalRegistro" Association="Model1.Store.LocalRegistro">
+      <End Role="Local" EntitySet="LocalSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+    <AssociationSet Name="MelhoriaRegistro" Association="Model1.Store.MelhoriaRegistro">
+      <End Role="Melhoria" EntitySet="MelhoriaSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+    <AssociationSet Name="Registro_PersonagemPersonagem" Association="Model1.Store.Registro_PersonagemPersonagem">
+      <End Role="Registro_Personagem" EntitySet="Registro_PersonagemSet" />
+      <End Role="Personagem" EntitySet="PersonagemSet" />
+    </AssociationSet>
+    <AssociationSet Name="RegistroRegistro_Personagem" Association="Model1.Store.RegistroRegistro_Personagem">
+      <End Role="Registro_Personagem" EntitySet="Registro_PersonagemSet" />
+      <End Role="Registro" EntitySet="RegistroSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="RegistroSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Titulo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Classificacao" Type="int" Nullable="false" />
+    <Property Name="Conteudo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocalId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonagemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GrauParentesco" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Idade" Type="int" Nullable="true" />
+    <Property Name="Nota" Type="int" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Registro_PersonagemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonagemId" Type="int" Nullable="true" />
+    <Property Name="RegistroId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocalSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Endereco" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Referencia" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MelhoriaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Texto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Possivel" Type="bit" Nullable="false" />
+    <Property Name="Registro_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="LocalRegistro">
+    <End Role="Local" Type="Model1.Store.LocalSet" Multiplicity="1" />
+    <End Role="Registro" Type="Model1.Store.RegistroSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro">
+        <PropertyRef Name="LocalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MelhoriaRegistro">
+    <End Role="Melhoria" Type="Model1.Store.MelhoriaSet" Multiplicity="*" />
+    <End Role="Registro" Type="Model1.Store.RegistroSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Registro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Melhoria">
+        <PropertyRef Name="Registro_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Registro_PersonagemPersonagem">
+    <End Role="Registro_Personagem" Type="Model1.Store.Registro_PersonagemSet" Multiplicity="*" />
+    <End Role="Personagem" Type="Model1.Store.PersonagemSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personagem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro_Personagem">
+        <PropertyRef Name="PersonagemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RegistroRegistro_Personagem">
+    <End Role="Registro_Personagem" Type="Model1.Store.Registro_PersonagemSet" Multiplicity="*" />
+    <End Role="Registro" Type="Model1.Store.RegistroSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Registro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Registro_Personagem">
+        <PropertyRef Name="RegistroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
